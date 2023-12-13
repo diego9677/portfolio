@@ -14,14 +14,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from typing import Any
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
+
+
+class IndexTemplateView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('portfolio/', include('portfolio.urls')),
-    path('', RedirectView.as_view(pattern_name='home'), name='index')
+    path('home/', IndexTemplateView.as_view(), name='home'),
+    path('', RedirectView.as_view(pattern_name='home'), name='index'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
