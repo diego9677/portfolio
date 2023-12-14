@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-
-
 function App() {
 
-  useEffect(() => {
-    
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('resize', () => {
+  //     setHeight(window.innerHeight);
+  //   });
+
+  // }, [])
 
   return (
-    <main className="bg-neutral-700">
+    <main className="bg-neutral-800" style={{ height: `${window.innerHeight}px` }}>
       app
     </main>
   )
